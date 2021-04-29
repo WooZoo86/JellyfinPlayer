@@ -1,0 +1,600 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		5377CBF5263B596A003A4E83 /* JellyfinPlayerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5377CBF4263B596A003A4E83 /* JellyfinPlayerApp.swift */; };
+		5377CBF7263B596A003A4E83 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5377CBF6263B596A003A4E83 /* ContentView.swift */; };
+		5377CBF9263B596B003A4E83 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5377CBF8263B596B003A4E83 /* Assets.xcassets */; };
+		5377CBFC263B596B003A4E83 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5377CBFB263B596B003A4E83 /* Preview Assets.xcassets */; };
+		5377CBFE263B596B003A4E83 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5377CBFD263B596B003A4E83 /* Persistence.swift */; };
+		5377CC01263B596B003A4E83 /* JellyfinPlayer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5377CBFF263B596B003A4E83 /* JellyfinPlayer.xcdatamodeld */; };
+		5377CC0C263B596B003A4E83 /* JellyfinPlayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5377CC0B263B596B003A4E83 /* JellyfinPlayerTests.swift */; };
+		5377CC17263B596B003A4E83 /* JellyfinPlayerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5377CC16263B596B003A4E83 /* JellyfinPlayerUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5377CC08263B596B003A4E83 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5377CBE9263B596A003A4E83 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5377CBF0263B596A003A4E83;
+			remoteInfo = JellyfinPlayer;
+		};
+		5377CC13263B596B003A4E83 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5377CBE9263B596A003A4E83 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5377CBF0263B596A003A4E83;
+			remoteInfo = JellyfinPlayer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		5377CBF1263B596A003A4E83 /* JellyfinPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JellyfinPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5377CBF4263B596A003A4E83 /* JellyfinPlayerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JellyfinPlayerApp.swift; sourceTree = "<group>"; };
+		5377CBF6263B596A003A4E83 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		5377CBF8263B596B003A4E83 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5377CBFB263B596B003A4E83 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		5377CBFD263B596B003A4E83 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		5377CC00263B596B003A4E83 /* JellyfinPlayer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = JellyfinPlayer.xcdatamodel; sourceTree = "<group>"; };
+		5377CC02263B596B003A4E83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5377CC07263B596B003A4E83 /* JellyfinPlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JellyfinPlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5377CC0B263B596B003A4E83 /* JellyfinPlayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JellyfinPlayerTests.swift; sourceTree = "<group>"; };
+		5377CC0D263B596B003A4E83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5377CC12263B596B003A4E83 /* JellyfinPlayerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JellyfinPlayerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5377CC16263B596B003A4E83 /* JellyfinPlayerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JellyfinPlayerUITests.swift; sourceTree = "<group>"; };
+		5377CC18263B596B003A4E83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		5377CBEE263B596A003A4E83 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5377CC04263B596B003A4E83 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5377CC0F263B596B003A4E83 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		5377CBE8263B596A003A4E83 = {
+			isa = PBXGroup;
+			children = (
+				5377CBF3263B596A003A4E83 /* JellyfinPlayer */,
+				5377CC0A263B596B003A4E83 /* JellyfinPlayerTests */,
+				5377CC15263B596B003A4E83 /* JellyfinPlayerUITests */,
+				5377CBF2263B596A003A4E83 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5377CBF2263B596A003A4E83 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5377CBF1263B596A003A4E83 /* JellyfinPlayer.app */,
+				5377CC07263B596B003A4E83 /* JellyfinPlayerTests.xctest */,
+				5377CC12263B596B003A4E83 /* JellyfinPlayerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		5377CBF3263B596A003A4E83 /* JellyfinPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				5377CBF4263B596A003A4E83 /* JellyfinPlayerApp.swift */,
+				5377CBF6263B596A003A4E83 /* ContentView.swift */,
+				5377CBF8263B596B003A4E83 /* Assets.xcassets */,
+				5377CBFD263B596B003A4E83 /* Persistence.swift */,
+				5377CC02263B596B003A4E83 /* Info.plist */,
+				5377CBFF263B596B003A4E83 /* JellyfinPlayer.xcdatamodeld */,
+				5377CBFA263B596B003A4E83 /* Preview Content */,
+			);
+			path = JellyfinPlayer;
+			sourceTree = "<group>";
+		};
+		5377CBFA263B596B003A4E83 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				5377CBFB263B596B003A4E83 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		5377CC0A263B596B003A4E83 /* JellyfinPlayerTests */ = {
+			isa = PBXGroup;
+			children = (
+				5377CC0B263B596B003A4E83 /* JellyfinPlayerTests.swift */,
+				5377CC0D263B596B003A4E83 /* Info.plist */,
+			);
+			path = JellyfinPlayerTests;
+			sourceTree = "<group>";
+		};
+		5377CC15263B596B003A4E83 /* JellyfinPlayerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				5377CC16263B596B003A4E83 /* JellyfinPlayerUITests.swift */,
+				5377CC18263B596B003A4E83 /* Info.plist */,
+			);
+			path = JellyfinPlayerUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		5377CBF0263B596A003A4E83 /* JellyfinPlayer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5377CC1B263B596B003A4E83 /* Build configuration list for PBXNativeTarget "JellyfinPlayer" */;
+			buildPhases = (
+				5377CBED263B596A003A4E83 /* Sources */,
+				5377CBEE263B596A003A4E83 /* Frameworks */,
+				5377CBEF263B596A003A4E83 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JellyfinPlayer;
+			productName = JellyfinPlayer;
+			productReference = 5377CBF1263B596A003A4E83 /* JellyfinPlayer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5377CC06263B596B003A4E83 /* JellyfinPlayerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5377CC1E263B596B003A4E83 /* Build configuration list for PBXNativeTarget "JellyfinPlayerTests" */;
+			buildPhases = (
+				5377CC03263B596B003A4E83 /* Sources */,
+				5377CC04263B596B003A4E83 /* Frameworks */,
+				5377CC05263B596B003A4E83 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5377CC09263B596B003A4E83 /* PBXTargetDependency */,
+			);
+			name = JellyfinPlayerTests;
+			productName = JellyfinPlayerTests;
+			productReference = 5377CC07263B596B003A4E83 /* JellyfinPlayerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		5377CC11263B596B003A4E83 /* JellyfinPlayerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5377CC21263B596B003A4E83 /* Build configuration list for PBXNativeTarget "JellyfinPlayerUITests" */;
+			buildPhases = (
+				5377CC0E263B596B003A4E83 /* Sources */,
+				5377CC0F263B596B003A4E83 /* Frameworks */,
+				5377CC10263B596B003A4E83 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5377CC14263B596B003A4E83 /* PBXTargetDependency */,
+			);
+			name = JellyfinPlayerUITests;
+			productName = JellyfinPlayerUITests;
+			productReference = 5377CC12263B596B003A4E83 /* JellyfinPlayerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		5377CBE9263B596A003A4E83 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1250;
+				LastUpgradeCheck = 1250;
+				TargetAttributes = {
+					5377CBF0263B596A003A4E83 = {
+						CreatedOnToolsVersion = 12.5;
+					};
+					5377CC06263B596B003A4E83 = {
+						CreatedOnToolsVersion = 12.5;
+						TestTargetID = 5377CBF0263B596A003A4E83;
+					};
+					5377CC11263B596B003A4E83 = {
+						CreatedOnToolsVersion = 12.5;
+						TestTargetID = 5377CBF0263B596A003A4E83;
+					};
+				};
+			};
+			buildConfigurationList = 5377CBEC263B596A003A4E83 /* Build configuration list for PBXProject "JellyfinPlayer" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 5377CBE8263B596A003A4E83;
+			productRefGroup = 5377CBF2263B596A003A4E83 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				5377CBF0263B596A003A4E83 /* JellyfinPlayer */,
+				5377CC06263B596B003A4E83 /* JellyfinPlayerTests */,
+				5377CC11263B596B003A4E83 /* JellyfinPlayerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		5377CBEF263B596A003A4E83 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5377CBFC263B596B003A4E83 /* Preview Assets.xcassets in Resources */,
+				5377CBF9263B596B003A4E83 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5377CC05263B596B003A4E83 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5377CC10263B596B003A4E83 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5377CBED263B596A003A4E83 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5377CBFE263B596B003A4E83 /* Persistence.swift in Sources */,
+				5377CC01263B596B003A4E83 /* JellyfinPlayer.xcdatamodeld in Sources */,
+				5377CBF7263B596A003A4E83 /* ContentView.swift in Sources */,
+				5377CBF5263B596A003A4E83 /* JellyfinPlayerApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5377CC03263B596B003A4E83 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5377CC0C263B596B003A4E83 /* JellyfinPlayerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5377CC0E263B596B003A4E83 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5377CC17263B596B003A4E83 /* JellyfinPlayerUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5377CC09263B596B003A4E83 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5377CBF0263B596A003A4E83 /* JellyfinPlayer */;
+			targetProxy = 5377CC08263B596B003A4E83 /* PBXContainerItemProxy */;
+		};
+		5377CC14263B596B003A4E83 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5377CBF0263B596A003A4E83 /* JellyfinPlayer */;
+			targetProxy = 5377CC13263B596B003A4E83 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		5377CC19263B596B003A4E83 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		5377CC1A263B596B003A4E83 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5377CC1C263B596B003A4E83 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"JellyfinPlayer/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = JellyfinPlayer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = me.vigue.JellyfinPlayer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5377CC1D263B596B003A4E83 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"JellyfinPlayer/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = JellyfinPlayer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = me.vigue.JellyfinPlayer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		5377CC1F263B596B003A4E83 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = JellyfinPlayerTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = me.vigue.JellyfinPlayerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JellyfinPlayer.app/JellyfinPlayer";
+			};
+			name = Debug;
+		};
+		5377CC20263B596B003A4E83 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = JellyfinPlayerTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = me.vigue.JellyfinPlayerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JellyfinPlayer.app/JellyfinPlayer";
+			};
+			name = Release;
+		};
+		5377CC22263B596B003A4E83 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = JellyfinPlayerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = me.vigue.JellyfinPlayerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = JellyfinPlayer;
+			};
+			name = Debug;
+		};
+		5377CC23263B596B003A4E83 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = JellyfinPlayerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = me.vigue.JellyfinPlayerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = JellyfinPlayer;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5377CBEC263B596A003A4E83 /* Build configuration list for PBXProject "JellyfinPlayer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5377CC19263B596B003A4E83 /* Debug */,
+				5377CC1A263B596B003A4E83 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5377CC1B263B596B003A4E83 /* Build configuration list for PBXNativeTarget "JellyfinPlayer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5377CC1C263B596B003A4E83 /* Debug */,
+				5377CC1D263B596B003A4E83 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5377CC1E263B596B003A4E83 /* Build configuration list for PBXNativeTarget "JellyfinPlayerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5377CC1F263B596B003A4E83 /* Debug */,
+				5377CC20263B596B003A4E83 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5377CC21263B596B003A4E83 /* Build configuration list for PBXNativeTarget "JellyfinPlayerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5377CC22263B596B003A4E83 /* Debug */,
+				5377CC23263B596B003A4E83 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		5377CBFF263B596B003A4E83 /* JellyfinPlayer.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5377CC00263B596B003A4E83 /* JellyfinPlayer.xcdatamodel */,
+			);
+			currentVersion = 5377CC00263B596B003A4E83 /* JellyfinPlayer.xcdatamodel */;
+			path = JellyfinPlayer.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 5377CBE9263B596A003A4E83 /* Project object */;
+}
