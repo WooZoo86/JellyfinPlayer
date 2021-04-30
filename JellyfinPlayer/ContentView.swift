@@ -6,72 +6,85 @@
 //
 
 import SwiftUI
-import CoreData
+import KeychainSwift
+import SwiftyRequest
+
+class GlobalData: ObservableObject {
+    @Published var user: SignedInUser?
+    @Published var authToken: String = ""
+    @Published var server: Server?
+}
+
+struct ServerMeResponse: Codable {
+    
+}
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @StateObject private var globalData = GlobalData()
 
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<Item>
+    @FetchRequest(entity: Server.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Server.name, ascending: true)]) private var servers: FetchedResults<Server>
+    
+    @FetchRequest(entity: SignedInUser.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \SignedInUser.username, ascending: true)]) private var savedUsers: FetchedResults<SignedInUser>
+    
+    @State private var needsToSelectServer = false;
+    @State private var isSignInErrored = false;
+    
+    func startup() {
+        if(servers.isEmpty) {
+            _needsToSelectServer.wrappedValue = true;
+        } else {
+            let savedUser = savedUsers[0];
+            debugPrint(savedUser)
+            let keychain = KeychainSwift();
+            if(keychain.get("AccessToken_\(savedUser.user_id ?? "")") != nil) {
+                _globalData.wrappedValue.authToken = keychain.get("AccessToken_\(savedUser.user_id ?? "")") ?? ""
+                _globalData.wrappedValue.server = servers[0]
+                _globalData.wrappedValue.user = savedUser
+            }
+            
+            let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String;
+            let authHeader = "MediaBrowser Client=\"SwiftFin\", Device=\"\(UIDevice.current.name)\", DeviceId=\"\(globalData.user?.device_uuid ?? "")\", Version=\"\(appVersion ?? "0.0.1")\", Token=\"\(globalData.authToken)\"";
+            let request = RestRequest(method: .get, url: (globalData.server?.baseURI ?? "") + "/Users/Me")
+            request.headerParameters["X-Emby-Authorization"] = authHeader
+            request.contentType = "application/json"
+            request.acceptType = "application/json"
+            
+            request.responseObject() { (result: Result<RestResponse<ServerMeResponse>, RestError>) in
+                switch result {
+                case .success( _):
+                    break
+                case .failure( _):
+                    _isSignInErrored.wrappedValue = true;
+                }
+            }
+        }
+    }
 
     var body: some View {
-        List {
-            ForEach(items) { item in
-                Text("Item at \(item.timestamp!, formatter: itemFormatter)")
+        NavigationView {
+            VStack {
+                NavigationLink(destination: ConnectToServerView(), isActive: $needsToSelectServer) {
+                    EmptyView()
+                }
+                NavigationLink(destination: ConnectToServerView(skip_server: true, skip_server_prefill: globalData.server?.baseURI ?? ""), isActive: $isSignInErrored) {
+                    EmptyView()
+                }
+                Text("test")
             }
-            .onDelete(perform: deleteItems)
-        }
-        .toolbar {
-            #if os(iOS)
-            EditButton()
-            #endif
-
-            Button(action: addItem) {
-                Label("Add Item", systemImage: "plus")
-            }
-        }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
+            .navigationTitle("")
+            .navigationBarItems(leading: Text("Home").font(.largeTitle).bold().padding(EdgeInsets(top: 90, leading: 0, bottom: 0, trailing: 0)), trailing: NavigationLink(destination: SettingsView()) {
+                    Image(systemName: "gear")
+                        .font(.system(size: 22)).padding(EdgeInsets(top: 90, leading: 0, bottom: 0, trailing: 0))
+                }
+            )
+        }.environmentObject(globalData)
+        .onAppear(perform: startup)
+        .alert(isPresented: $isSignInErrored) {
+            Alert(title: Text("Error"), message: Text("Credentials have expired"), dismissButton: .default(Text("Sign in again.")))
         }
     }
 }
-
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
