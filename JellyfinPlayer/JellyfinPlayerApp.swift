@@ -12,11 +12,6 @@ import SwiftUI
 struct JellyfinPlayerApp: App {
     let persistenceController = PersistenceController.shared
     
-    init() {
-        let dirPaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-        print("App Path: \(dirPaths)")
-    }
-    
     var body: some Scene {
         WindowGroup {
             ContentView()

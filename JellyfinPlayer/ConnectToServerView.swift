@@ -11,27 +11,6 @@ import SwiftyRequest
 import CoreData
 import KeychainSwift
 
-struct ServerPublicInfoResponse: Codable {
-    var LocalAddress: String
-    var ServerName: String
-    var Version: String
-    var ProductName: String
-    var OperatingSystem: String
-    var Id: String
-    var StartupWizardCompleted: Bool
-}
-
-struct ServerUserResponse: Codable {
-    var Name: String
-    var Id: String
-    var PrimaryImageTag: String
-}
-
-struct ServerAuthByNameResponse: Codable {
-    var User: ServerUserResponse
-    var AccessToken: String
-}
-
 struct ConnectToServerView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @State private var uri = "";
@@ -46,14 +25,30 @@ struct ConnectToServerView: View {
     @State private var password = "";
     @State private var server_id = "";
     
-    init(skip_server: Bool, skip_server_prefill: String) {
-        if(skip_server) {
-            _uri.wrappedValue = skip_server_prefill
-            _isConnected.wrappedValue = true
-        }
+    @State private var serverSkipped: Bool = false;
+    @State private var serverSkippedAlert: Bool = false;
+    private var reauthDeviceID: String = "";
+    private var skip_server_bool: Bool = false;
+    private var skip_server_obj: Server?
+    
+    init(skip_server: Bool, skip_server_prefill: Server?, reauth_deviceId: String) {
+        skip_server_bool = skip_server
+        skip_server_obj = skip_server_prefill
+        reauthDeviceID = reauth_deviceId
     }
     
     init() { 
+    }
+    
+    func start() {
+        if(skip_server_bool) {
+            _serverSkipped.wrappedValue = true;
+            _serverSkippedAlert.wrappedValue = true;
+            _server_id.wrappedValue = skip_server_obj?.server_id ?? ""
+            _serverName.wrappedValue = skip_server_obj?.name ?? ""
+            _uri.wrappedValue = skip_server_obj?.baseURI ?? ""
+            _isConnected.wrappedValue = true;
+        }
     }
     
     var body: some View {
@@ -63,7 +58,6 @@ struct ConnectToServerView: View {
                     TextField("Server URL", text: $uri)
                         .disableAutocorrection(true)
                         .autocapitalization(.none)
-                        .isHidden(isConnected)
                     Button {
                         _isWorking.wrappedValue = true;
                         
@@ -92,9 +86,11 @@ struct ConnectToServerView: View {
                         ProgressView().isHidden(!isWorking)
                         }
                     }.disabled(isWorking || uri.isEmpty)
+                }.alert(isPresented: $isErrored) {
+                    Alert(title: Text("Error"), message: Text("Couldn't connect to Jellyfin server"), dismissButton: .default(Text("Try again")))
                 }
             } else {
-                Section(header: Text("Authenticate to " + (serverName == "" ? "server" : serverName))) {
+                Section(header: Text("\(serverSkipped ? "re" : "")Authenticate to \(serverName)")) {
                     TextField("Username", text: $username)
                         .disableAutocorrection(true)
                         .autocapitalization(.none)
@@ -104,7 +100,7 @@ struct ConnectToServerView: View {
                     Button {
                         _isWorking.wrappedValue = true
                         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String;
-                        let authHeader = "MediaBrowser Client=\"SwiftFin\", Device=\"\(UIDevice.current.name)\", DeviceId=\"\(userUUID.uuidString)\", Version=\"\(appVersion ?? "0.0.1")\"";
+                        let authHeader = "MediaBrowser Client=\"SwiftFin\", Device=\"\(UIDevice.current.name)\", DeviceId=\"\(serverSkipped ? reauthDeviceID : userUUID.uuidString)\", Version=\"\(appVersion ?? "0.0.1")\"";
                         let authJson: [String: Any] = ["Username": _username.wrappedValue, "Pw": _password.wrappedValue]
                         let request = RestRequest(method: .post, url: uri + "/Users/AuthenticateByName")
                         request.headerParameters["X-Emby-Authorization"] = authHeader
@@ -118,10 +114,29 @@ struct ConnectToServerView: View {
                                 let user = response.body
                                 print("User logged in successfully. Access token: " + user.AccessToken)
                                 
+                                let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Server")
+                                let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+
+                                do {
+                                    try viewContext.execute(deleteRequest)
+                                } catch _ as NSError {
+                                    // TODO: handle the error
+                                }
+                                
+                                let fetchRequest2: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "SignedInUser")
+                                let deleteRequest2 = NSBatchDeleteRequest(fetchRequest: fetchRequest2)
+
+                                do {
+                                    try viewContext.execute(deleteRequest2)
+                                } catch _ as NSError {
+                                    // TODO: handle the error
+                                }
+                                
                                 let newServer = Server(context: viewContext)
                                 newServer.baseURI = _uri.wrappedValue
                                 newServer.name = _serverName.wrappedValue
                                 newServer.server_id = _server_id.wrappedValue
+                                
                                 let newUser = SignedInUser(context: viewContext)
                                 newUser.device_uuid = userUUID.uuidString
                                 newUser.username = _username.wrappedValue
@@ -141,12 +156,11 @@ struct ConnectToServerView: View {
                                 }
                                 
                             case .failure(let error):
-                                debugPrint(error)
+                                print(error)
                                 _isSignInErrored.wrappedValue = true;
                             }
                             _isWorking.wrappedValue = false;
                         }
-                        
                     } label: {
                         HStack {
                             Text("Login")
@@ -154,16 +168,18 @@ struct ConnectToServerView: View {
                             ProgressView().isHidden(!isWorking)
                         }
                     }.disabled(isWorking || username.isEmpty || password.isEmpty)
+                    .alert(isPresented: $isSignInErrored) {
+                        Alert(title: Text("Error"), message: Text("Invalid credentials"), dismissButton: .default(Text("Back")))
+                    }
                 }
             }
         }.navigationTitle("Connect to Server")
         .navigationBarBackButtonHidden(true)
-        .alert(isPresented: $isErrored) {
-            Alert(title: Text("Error"), message: Text("Couldn't connect to Jellyfin server"), dismissButton: .default(Text("Got it!")))
+        .alert(isPresented: $serverSkippedAlert) {
+            Alert(title: Text("Error"), message: Text("Credentials have expired"), dismissButton: .default(Text("Sign in again")))
         }
-        .alert(isPresented: $isSignInErrored) {
-            Alert(title: Text("Error"), message: Text("Couldn't connect to Jellyfin server"), dismissButton: .default(Text("Got it!")))
-        }
+        .onAppear(perform: start)
+        .transition(.move(edge:.bottom))
     }
 }
 
