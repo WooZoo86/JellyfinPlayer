@@ -7,15 +7,29 @@
 
 import SwiftUI
 
+class justSignedIn: ObservableObject {
+    @Published var did: Bool = false
+}
 
 @main
 struct JellyfinPlayerApp: App {
     let persistenceController = PersistenceController.shared
+    @StateObject private var jsi = justSignedIn()
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            if(!jsi.did) {
+                ContentView()
+                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                    .environmentObject(jsi)
+            } else {
+                Text("Please wait...")
+                    .onAppear(perform: {
+                        print("Signing in")
+                        sleep(1)
+                        jsi.did = false
+                    })
+            }
         }
     }
 }

@@ -13,12 +13,16 @@ import KeychainSwift
 
 struct ConnectToServerView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject var jsi: justSignedIn
     @State private var uri = "";
     @State private var isWorking = false;
     @State private var isErrored = false;
+    @State private var isDone = false;
     @State private var isSignInErrored = false;
     @State private var isConnected = false;
     @State private var serverName = "";
+    @Binding var rootIsActive : Bool
+    
     let userUUID = UUID();
     
     @State private var username = "";
@@ -31,13 +35,15 @@ struct ConnectToServerView: View {
     private var skip_server_bool: Bool = false;
     private var skip_server_obj: Server?
     
-    init(skip_server: Bool, skip_server_prefill: Server?, reauth_deviceId: String) {
+    init(skip_server: Bool, skip_server_prefill: Server?, reauth_deviceId: String, isActive: Binding<Bool>) {
         skip_server_bool = skip_server
         skip_server_obj = skip_server_prefill
         reauthDeviceID = reauth_deviceId
+        _rootIsActive = isActive
     }
     
-    init() { 
+    init(isActive: Binding<Bool>) {
+        _rootIsActive = isActive
     }
     
     func start() {
@@ -148,6 +154,8 @@ struct ConnectToServerView: View {
                                 do {
                                     try viewContext.save()
                                     print("Saved to Core Data Store")
+                                    jsi.did = true
+                                    _rootIsActive.wrappedValue = false
                                 } catch {
                                     // Replace this implementation with code to handle the error appropriately.
                                     // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
@@ -180,11 +188,5 @@ struct ConnectToServerView: View {
         }
         .onAppear(perform: start)
         .transition(.move(edge:.bottom))
-    }
-}
-
-struct ConnectToServerView_Previews: PreviewProvider {
-    static var previews: some View {
-        ConnectToServerView()
     }
 }

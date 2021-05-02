@@ -20,6 +20,15 @@
         }
       },
       {
+        "package": "ExyteGrid",
+        "repositoryURL": "https://github.com/exyte/Grid",
+        "state": {
+          "branch": null,
+          "revision": "585dc249126fda6ae675d78175b0c52a311f10c9",
+          "version": "1.4.0"
+        }
+      },
+      {
         "package": "HidingViews",
         "repositoryURL": "https://github.com/GeorgeElsham/HidingViews",
         "state": {
@@ -44,6 +53,24 @@
           "branch": null,
           "revision": "e82d34eab3f0b05391082b11ea07d3b70d2f65bb",
           "version": "1.9.200"
+        }
+      },
+      {
+        "package": "SDWebImage",
+        "repositoryURL": "https://github.com/SDWebImage/SDWebImage.git",
+        "state": {
+          "branch": null,
+          "revision": "76dd4b49110b8624317fc128e7fa0d8a252018bc",
+          "version": "5.11.1"
+        }
+      },
+      {
+        "package": "SDWebImageSwiftUI",
+        "repositoryURL": "https://github.com/SDWebImage/SDWebImageSwiftUI",
+        "state": {
+          "branch": null,
+          "revision": "cd8625b7cf11a97698e180d28bb7d5d357196678",
+          "version": "2.0.2"
         }
       },
       {
@@ -80,6 +107,15 @@
           "branch": null,
           "revision": "3d576964a1ace80d2a3f8bab96cab03e5ee074dc",
           "version": "2.12.0"
+        }
+      },
+      {
+        "package": "NavigationStack",
+        "repositoryURL": "https://github.com/matteopuc/swiftui-navigation-stack",
+        "state": {
+          "branch": null,
+          "revision": "eb95be334b855f682ce8a2f9acb62d2c7123d483",
+          "version": "1.0.3"
         }
       },
       {

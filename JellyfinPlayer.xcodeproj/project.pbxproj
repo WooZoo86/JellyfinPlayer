@@ -24,6 +24,8 @@
 		5389277A263CBFE70035E14B /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 53892779263CBFE70035E14B /* SwiftyJSON */; };
 		5389277C263CC3DB0035E14B /* BlurHashDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5389277B263CC3DB0035E14B /* BlurHashDecode.swift */; };
 		53892782263CC8770035E14B /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = 53892781263CC8770035E14B /* URLImage */; };
+		538CD954263E3DC100BB5AF0 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 538CD953263E3DC100BB5AF0 /* SDWebImageSwiftUI */; };
+		538CD957263E441500BB5AF0 /* ExyteGrid in Frameworks */ = {isa = PBXBuildFile; productRef = 538CD956263E441500BB5AF0 /* ExyteGrid */; };
 		539B2DA5263BA5B8007FF1A4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539B2DA4263BA5B8007FF1A4 /* SettingsView.swift */; };
 		53DF641E263D9C0600A7CD1A /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DF641D263D9C0600A7CD1A /* LibraryView.swift */; };
 		53FF7F2A263CF3F500585C35 /* LatestMediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7F29263CF3F500585C35 /* LatestMediaView.swift */; };
@@ -54,6 +56,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				538CD954263E3DC100BB5AF0 /* SDWebImageSwiftUI in Frameworks */,
+				538CD957263E441500BB5AF0 /* ExyteGrid in Frameworks */,
 				5338F757263B7E2E0014BF09 /* KeychainSwift in Frameworks */,
 				5338F754263B65E10014BF09 /* SwiftyRequest in Frameworks */,
 				53892782263CC8770035E14B /* URLImage in Frameworks */,
@@ -134,6 +138,8 @@
 				5338F756263B7E2E0014BF09 /* KeychainSwift */,
 				53892779263CBFE70035E14B /* SwiftyJSON */,
 				53892781263CC8770035E14B /* URLImage */,
+				538CD953263E3DC100BB5AF0 /* SDWebImageSwiftUI */,
+				538CD956263E441500BB5AF0 /* ExyteGrid */,
 			);
 			productName = JellyfinPlayer;
 			productReference = 5377CBF1263B596A003A4E83 /* JellyfinPlayer.app */;
@@ -168,6 +174,8 @@
 				5338F755263B7E2E0014BF09 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				53892778263CBFE70035E14B /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				53892780263CC8770035E14B /* XCRemoteSwiftPackageReference "url-image" */,
+				538CD952263E3DC100BB5AF0 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				538CD955263E441500BB5AF0 /* XCRemoteSwiftPackageReference "Grid" */,
 			);
 			productRefGroup = 5377CBF2263B596A003A4E83 /* Products */;
 			projectDirPath = "";
@@ -340,7 +348,7 @@
 				DEVELOPMENT_TEAM = 9R8RREG67J;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = JellyfinPlayer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -362,7 +370,7 @@
 				DEVELOPMENT_TEAM = 9R8RREG67J;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = JellyfinPlayer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -438,6 +446,22 @@
 				minimumVersion = 2.2.5;
 			};
 		};
+		538CD952263E3DC100BB5AF0 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.2;
+			};
+		};
+		538CD955263E441500BB5AF0 /* XCRemoteSwiftPackageReference "Grid" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/exyte/Grid";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -465,6 +489,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 53892780263CC8770035E14B /* XCRemoteSwiftPackageReference "url-image" */;
 			productName = URLImage;
+		};
+		538CD953263E3DC100BB5AF0 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 538CD952263E3DC100BB5AF0 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+		538CD956263E441500BB5AF0 /* ExyteGrid */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 538CD955263E441500BB5AF0 /* XCRemoteSwiftPackageReference "Grid" */;
+			productName = ExyteGrid;
 		};
 /* End XCSwiftPackageProductDependency section */
 

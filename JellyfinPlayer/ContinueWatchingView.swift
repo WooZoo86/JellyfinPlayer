@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftyRequest
 import SwiftyJSON
-import URLImage
+import SDWebImageSwiftUI
 
 struct ContinueWatchingView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -16,8 +16,12 @@ struct ContinueWatchingView: View {
     
     @State var resumeItems: [ResumeItem] = []
     @State private var viewDidLoad: Int = 0;
+    @State private var isLoading: Bool = true;
     
     func onAppear() {
+        if(globalData.server?.baseURI == "") {
+            return
+        }
         if(viewDidLoad == 1) {
             return
         }
@@ -57,11 +61,13 @@ struct ContinueWatchingView: View {
                         itemObj.ItemProgress = item["UserData"]["PlayedPercentage"].double ?? 0.00
                         _resumeItems.wrappedValue.append(itemObj)
                     }
+                    _isLoading.wrappedValue = false;
                 } catch {
                     
                 }
                 break
             case .failure(let error):
+                _viewDidLoad.wrappedValue = 0;
                 debugPrint(error)
                 break
             }
@@ -73,64 +79,66 @@ struct ContinueWatchingView: View {
             Text("Continue Watching").font(.subheadline).textCase(Text.Case.uppercase)
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack() {
-                    ForEach(resumeItems, id: \.Id) { item in
-                        VStack() {
-                            if(item.Type == "Episode") {
-                                URLImage(url: URL(string: "\(globalData.server?.baseURI ?? "")/Items/\(item.Id)/Images/\(item.ImageType)?tag=\(item.Image)")!,
-                                 inProgress: { _ in
-                                    Image(uiImage: UIImage(blurHash: item.BlurHash , size: CGSize(width: 200 * 1.7777, height: 200))!).cornerRadius(10.0)
-                                 },
-                                 failure: { _, _ in
-                                    EmptyView()
-                                 },
-                                 content: { image in
-                                    image.resizable().frame(width: 200 * 1.7777, height: 200).cornerRadius(10.0).overlay(
-                                        ZStack {
-                                            Text("\(item.SeriesName ?? "")")
-                                                .font(.caption)
-                                                .padding(6)
-                                                .foregroundColor(.white)
-                                        }.background(Color.black)
-                                        .opacity(0.8)
-                                        .cornerRadius(10.0)
-                                        .padding(6), alignment: .bottomLeading
-                                    )
-                                    .overlay(
-                                        ZStack {
-                                            Text("S\(String(item.ParentIndexNumber ?? 0)):E\(String(item.IndexNumber ?? 0)) - \(item.Name)")
-                                                .font(.caption)
-                                                .padding(6)
-                                                .foregroundColor(.white)
-                                        }.background(Color.black)
-                                        .opacity(0.8)
-                                        .cornerRadius(10.0)
-                                        .padding(6), alignment: .topTrailing
-                                    )
-                                 })
-                            } else {
-                                URLImage(url: URL(string: "\(globalData.server?.baseURI ?? "")/Items/\(item.Id)/Images/\(item.ImageType)?tag=\(item.Image)")!,
-                                 inProgress: { _ in
-                                    Image(uiImage: UIImage(blurHash: item.BlurHash , size: CGSize(width: 200 * 1.7777, height: 200))!).cornerRadius(10.0)
-                                 },
-                                 failure: { _, _ in
-                                    EmptyView()
-                                 },
-                                 content: { image in
-                                    image.resizable().frame(width: 200 * 1.7777, height: 200).cornerRadius(10.0).overlay(
-                                        ZStack {
-                                            Text("\(item.Type == "Episode" ? item.SeriesName ?? "" : item.Name)")
-                                                .font(.caption)
-                                                .padding(6)
-                                                .foregroundColor(.white)
-                                        }.background(Color.black)
-                                        .opacity(0.8)
-                                        .cornerRadius(10.0)
-                                        .padding(6), alignment: .bottomLeading
-                                    )
-                                 })
+                    if(isLoading == false) {
+                        ForEach(resumeItems, id: \.Id) { item in
+                            VStack() {
+                                if(item.Type == "Episode") {
+                                    WebImage(url: URL(string: "\(globalData.server?.baseURI ?? "")/Items/\(item.Id)/Images/\(item.ImageType)?fillWidth=560&fillHeight=315&quality=90&tag=\(item.Image)")!)
+                                        .resizable() // Resizable like SwiftUI.Image, you must use this modifier or the view will use the image bitmap size
+                                        .placeholder {
+                                            Image(uiImage: UIImage(blurHash: item.BlurHash, size: CGSize(width: 32, height: 32))!)
+                                                .resizable()
+                                                .frame(width: 200 * 1.7777, height: 200)
+                                                .cornerRadius(10)
+                                        }
+                                        .frame(width: 200 * 1.7777, height: 200)
+                                        .cornerRadius(10).overlay(
+                                            ZStack {
+                                                Text("\(item.SeriesName ?? "")")
+                                                    .font(.caption)
+                                                    .padding(6)
+                                                    .foregroundColor(.white)
+                                            }.background(Color.black)
+                                            .opacity(0.8)
+                                            .cornerRadius(10.0)
+                                            .padding(6), alignment: .bottomLeading
+                                        )
+                                        .overlay(
+                                            ZStack {
+                                                Text("S\(String(item.ParentIndexNumber ?? 0)):E\(String(item.IndexNumber ?? 0)) - \(item.Name)")
+                                                    .font(.caption)
+                                                    .padding(6)
+                                                    .foregroundColor(.white)
+                                            }.background(Color.black)
+                                            .opacity(0.8)
+                                            .cornerRadius(10.0)
+                                            .padding(6), alignment: .topTrailing
+                                        )
+                                } else {
+                                    WebImage(url: URL(string: "\(globalData.server?.baseURI ?? "")/Items/\(item.Id)/Images/\(item.ImageType)?fillWidth=560&fillHeight=315&quality=90&tag=\(item.Image)")!)
+                                        .resizable() // Resizable like SwiftUI.Image, you must use this modifier or the view will use the image bitmap size
+                                        .placeholder {
+                                            Image(uiImage: UIImage(blurHash: item.BlurHash, size: CGSize(width: 32, height: 32))!)
+                                                .resizable()
+                                                .frame(width: 200 * 1.7777, height: 200)
+                                                .cornerRadius(10)
+                                        }
+                                        .frame(width: 200 * 1.7777, height: 200)
+                                        .cornerRadius(10).overlay(
+                                            ZStack {
+                                                Text("\(item.Type == "Episode" ? item.SeriesName ?? "" : item.Name)")
+                                                    .font(.caption)
+                                                    .padding(6)
+                                                    .foregroundColor(.white)
+                                            }.background(Color.black)
+                                            .opacity(0.8)
+                                            .cornerRadius(10.0)
+                                            .padding(6), alignment: .bottomLeading
+                                        )
+                                }
+                                ProgressView(value: item.ItemProgress, total: 100)
+                                    .offset(y:-2)
                             }
-                            ProgressView(value: item.ItemProgress, total: 100)
-                                .offset(y:-2)
                         }
                     }
                 }

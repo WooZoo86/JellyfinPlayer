@@ -20,6 +20,7 @@ class GlobalData: ObservableObject {
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @StateObject private var globalData = GlobalData()
+    @EnvironmentObject var jsi: justSignedIn
 
     @FetchRequest(entity: Server.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Server.name, ascending: true)]) private var servers: FetchedResults<Server>
     
@@ -107,32 +108,43 @@ struct ContentView: View {
             TabView(selection: $tabSelection) {
                 NavigationView() {
                     VStack {
-                        NavigationLink(destination: ConnectToServerView(), isActive: $needsToSelectServer) {
+                        NavigationLink(destination: ConnectToServerView(isActive: $needsToSelectServer), isActive: $needsToSelectServer) {
                             EmptyView()
-                        }
-                        NavigationLink(destination: ConnectToServerView(skip_server: true, skip_server_prefill: globalData.server, reauth_deviceId: globalData.user?.device_uuid ?? ""), isActive: $isSignInErrored) {
+                        }.isDetailLink(false)
+                        NavigationLink(destination: ConnectToServerView(skip_server: true, skip_server_prefill: globalData.server, reauth_deviceId: globalData.user?.device_uuid ?? "", isActive: $isSignInErrored), isActive: $isSignInErrored) {
                             EmptyView()
-                        }
-                        VStack(alignment: .leading) {
-                            ScrollView() {
-                                ContinueWatchingView()
-                                NextUpView().padding(EdgeInsets(top: 4, leading: 0, bottom: 0, trailing: 0))
-                                ForEach(librariesShowRecentlyAdded, id: \.self) { library_id in
-                                    VStack(alignment: .leading) {
-                                        NavigationLink(destination: LibraryView(prefill: library_id, names: library_names, libraries: libraries)) {
-                                            HStack() {
-                                                Text("Latest \(library_names[library_id] ?? "")").font(.subheadline).textCase(Text.Case.uppercase).foregroundColor(Color.primary)
-                                                Image(systemName: "chevron.right")
+                        }.isDetailLink(false)
+                        if(!needsToSelectServer && !isSignInErrored) {
+                            VStack(alignment: .leading) {
+                                ScrollView() {
+                                    ContinueWatchingView()
+                                    NextUpView().padding(EdgeInsets(top: 4, leading: 0, bottom: 0, trailing: 0))
+                                    ForEach(librariesShowRecentlyAdded, id: \.self) { library_id in
+                                        VStack(alignment: .leading) {
+                                            NavigationLink(destination: LibraryView(prefill: library_id, names: library_names, libraries: libraries)) {
+                                                HStack() {
+                                                    Text("Latest \(library_names[library_id] ?? "")").font(.subheadline).textCase(Text.Case.uppercase).foregroundColor(Color.primary)
+                                                    Image(systemName: "chevron.right")
+                                                }
                                             }
-                                        }
-                                        LatestMediaView(library: library_id)
-                                    }.padding(EdgeInsets(top: 8, leading: 0, bottom: 0, trailing: 0))
+                                            LatestMediaView(library: library_id)
+                                        }.padding(EdgeInsets(top: 8, leading: 0, bottom: 0, trailing: 0))
+                                    }
+                                    Spacer()
                                 }
-                                Spacer()
-                            }
-                        }.padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                            }.padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                        }
                     }
                     .navigationTitle("Home")
+                    .toolbar {
+                        ToolbarItemGroup(placement: .navigationBarTrailing) {
+                            Button {
+                                print("Help tapped!")
+                            } label: {
+                                Image(systemName: "magnifyingglass")
+                            }
+                        }
+                    }
                 }
                 .tabItem({
                     Text("Home")
@@ -140,12 +152,12 @@ struct ContentView: View {
                 })
                 .tag("Home")
                 NavigationView() {
-                    LibraryView(prefill: nil, names: library_names, libraries: libraries)
+                    LibraryView(prefill: "", names: library_names, libraries: libraries)
                     .navigationTitle("Library")
                 }
                 .tabItem({
-                    Text("Library")
-                    Image(systemName: "books.vertical")
+                    Text("Browse")
+                    Image(systemName: "folder")
                 })
                 .tag("Library")
             }

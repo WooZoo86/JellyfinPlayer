@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftyRequest
 import SwiftyJSON
-import URLImage
+import SDWebImageSwiftUI
 
 struct NextUpView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -16,8 +16,12 @@ struct NextUpView: View {
     
     @State var resumeItems: [ResumeItem] = []
     @State private var viewDidLoad: Int = 0;
+    @State private var isLoading: Bool = false;
     
     func onAppear() {
+        if(globalData.server?.baseURI == "") {
+            return
+        }
         if(viewDidLoad == 1) {
             return
         }
@@ -50,12 +54,14 @@ struct NextUpView: View {
                         
                         _resumeItems.wrappedValue.append(itemObj)
                     }
+                    _isLoading.wrappedValue = false;
                 } catch {
                     
                 }
                 break
             case .failure(let error):
                 debugPrint(error)
+                _viewDidLoad.wrappedValue = 0;
                 break
             }
         }
@@ -66,18 +72,20 @@ struct NextUpView: View {
             Text("Next Up").font(.subheadline).textCase(Text.Case.uppercase)
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack() {
-                    ForEach(resumeItems, id: \.Id) { item in
-                        VStack() {
-                            URLImage(url: URL(string: "\(globalData.server?.baseURI ?? "")/Items/\(item.SeriesId ?? "")/Images/\(item.ImageType)?tag=\(item.Image)")!,
-                             inProgress: { _ in
-                                Image(uiImage: UIImage(blurHash: item.BlurHash, size: CGSize(width: 120, height: 120 * 1.5))!).cornerRadius(10.0)
-                             },
-                             failure: { _, _ in
-                                EmptyView()
-                             },
-                             content: { image in
-                                image.resizable().frame(width: 120, height: 120*1.5).cornerRadius(10.0)
-                             })
+                    if(isLoading == false) {
+                        ForEach(resumeItems, id: \.Id) { item in
+                            VStack() {
+                                WebImage(url: URL(string: "\(globalData.server?.baseURI ?? "")/Items/\(item.SeriesId ?? "")/Images/\(item.ImageType)?fillWidth=300&fillHeight=450&quality=90&tag=\(item.Image)")!)
+                                    .resizable() // Resizable like SwiftUI.Image, you must use this modifier or the view will use the image bitmap size
+                                    .placeholder {
+                                        Image(uiImage: UIImage(blurHash: item.BlurHash, size: CGSize(width: 32, height: 32))!)
+                                            .resizable()
+                                            .frame(width: 120, height: 180)
+                                            .cornerRadius(10)
+                                    }
+                                    .frame(width: 120, height: 180)
+                                    .cornerRadius(10)
+                            }
                         }
                     }
                 }

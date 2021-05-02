@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftyRequest
 import SwiftyJSON
-import URLImage
+import SDWebImageSwiftUI
 
 struct LatestMediaView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -27,6 +27,9 @@ struct LatestMediaView: View {
     }
     
     func onAppear() {
+        if(globalData.server?.baseURI == "") {
+            return
+        }
         if(viewDidLoad == 1) {
             return
         }
@@ -65,12 +68,14 @@ struct LatestMediaView: View {
                             _resumeItems.wrappedValue.append(itemObj)
                         }
                     }
+                    print("latestmediaview done https")
                 } catch {
                     
                 }
                 break
             case .failure(let error):
                 debugPrint(error)
+                _viewDidLoad.wrappedValue = 0;
                 break
             }
         }
@@ -82,37 +87,37 @@ struct LatestMediaView: View {
                     ForEach(resumeItems, id: \.Id) { item in
                         VStack() {
                             if(item.Type == "Series") {
-                                URLImage(url: URL(string: "\(globalData.server?.baseURI ?? "")/Items/\(item.Id)/Images/\(item.ImageType)?tag=\(item.Image)")!,
-                                 inProgress: { _ in
-                                    Image(uiImage: UIImage(blurHash: item.BlurHash, size: CGSize(width: 120, height: 120 * 1.5))!).cornerRadius(10.0)
-                                 },
-                                 failure: { _, _ in
-                                    EmptyView()
-                                 },
-                                 content: { image in
-                                    image.resizable().frame(width: 120, height: 120*1.5).cornerRadius(10.0).overlay(
+                                WebImage(url: URL(string: "\(globalData.server?.baseURI ?? "")/Items/\(item.Id)/Images/\(item.ImageType)?fillWidth=300&fillHeight=450&quality=90&tag=\(item.Image)")!)
+                                    .resizable() // Resizable like SwiftUI.Image, you must use this modifier or the view will use the image bitmap size
+                                    .placeholder {
+                                        Image(uiImage: UIImage(blurHash: item.BlurHash, size: CGSize(width: 32, height: 32))!)
+                                            .resizable()
+                                            .frame(width: 120, height: 180)
+                                            .cornerRadius(10)
+                                    }
+                                    .frame(width: 120, height: 180)
+                                    .cornerRadius(10).overlay(
                                         ZStack {
                                             Text("\(String(item.ItemBadge ?? 0))")
                                                 .font(.caption)
-                                                .padding(6)
+                                                .padding(3)
                                                 .foregroundColor(.white)
                                         }.background(Color.black)
                                         .opacity(0.8)
                                         .cornerRadius(10.0)
                                         .padding(3), alignment: .topTrailing
                                     )
-                                 })
                             } else {
-                                URLImage(url: URL(string: "\(globalData.server?.baseURI ?? "")/Items/\(item.Id)/Images/\(item.ImageType)?tag=\(item.Image)")!,
-                                 inProgress: { _ in
-                                    Image(uiImage: UIImage(blurHash: item.BlurHash, size: CGSize(width: 120, height: 120 * 1.5))!).cornerRadius(10.0)
-                                 },
-                                 failure: { _, _ in
-                                    EmptyView()
-                                 },
-                                 content: { image in
-                                    image.resizable().frame(width: 120, height: 120*1.5).cornerRadius(10.0)
-                                 })
+                                WebImage(url: URL(string: "\(globalData.server?.baseURI ?? "")/Items/\(item.Id)/Images/\(item.ImageType)?fillWidth=300&fillHeight=450&quality=90&tag=\(item.Image)")!)
+                                    .resizable() // Resizable like SwiftUI.Image, you must use this modifier or the view will use the image bitmap size
+                                    .placeholder {
+                                        Image(uiImage: UIImage(blurHash: item.BlurHash, size: CGSize(width: 32, height: 32))!)
+                                            .resizable()
+                                            .frame(width: 120, height: 180)
+                                            .cornerRadius(10)
+                                    }
+                                    .frame(width: 120, height: 180)
+                                    .cornerRadius(10)
                             }
                         }
                     }
